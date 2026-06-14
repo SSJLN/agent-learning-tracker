@@ -371,21 +371,36 @@
 
     <!-- 底部分页 -->
     <div class="tab-bar">
-        <div class="tab-item active" onclick="switchTab('plan')">
+        <div class="tab-item active" data-tab="plan" id="tab-plan">
             <span class="tab-icon">📋</span>
             <span>学习计划</span>
         </div>
-        <div class="tab-item" onclick="switchTab('achievements')">
+        <div class="tab-item" data-tab="achievements" id="tab-achievements">
             <span class="tab-icon">✅</span>
             <span>已完成</span>
         </div>
-        <div class="tab-item" onclick="switchTab('stats')">
+        <div class="tab-item" data-tab="stats" id="tab-stats">
             <span class="tab-icon">📊</span>
             <span>统计</span>
         </div>
     </div>
 
     <script>
+        // Tab 切换
+        document.querySelectorAll('.tab-item').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+                switchTab(tabName, this);
+            });
+        });
+
+        function switchTab(tab, el) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+            document.getElementById('page-' + tab).classList.add('active');
+            el.classList.add('active');
+        }
+
         const phases = [
             {
                 id: 1,
@@ -430,13 +445,6 @@
             { icon: "🔌", title: "配置 Claude Code 插件", desc: "在 VS Code 中安装 Claude Code 插件", date: "2024-06-14", tags: ["配置"] },
             { icon: "🌐", title: "创建学习进度网页", desc: "开发上线学习进度可视化网页", date: "2024-06-14", tags: ["开发"] }
         ];
-
-        function switchTab(tab) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-            document.getElementById('page-' + tab).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
 
         function renderPhases() {
             const container = document.getElementById('phasesList');
