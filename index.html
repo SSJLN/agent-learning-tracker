@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent 学习进度</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: rgba(255,255,255,0.8);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .progress-bar {
+            background: rgba(255,255,255,0.2);
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        .progress-fill {
+            background: #4ade80;
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+        .phase {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .phase-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .phase-number {
+            background: #667eea;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .phase-number.done {
+            background: #4ade80;
+        }
+        .phase-number.current {
+            background: #f59e0b;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .phase-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            flex: 1;
+            margin-left: 12px;
+        }
+        .status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .status.pending {
+            background: #e5e7eb;
+            color: #6b7280;
+        }
+        .status.done {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .status.current {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        .phase-desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .phase-tags {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .tag {
+            background: #f3f4f6;
+            color: #6b7280;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+        .tag.theory {
+            background: #e0e7ff;
+            color: #4338ca;
+        }
+        .tag.practice {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .update-time {
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            margin-top: 30px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Agent 学习进度</h1>
+        <p class="subtitle">从零开始学习 Agent 开发</p>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+
+        <div id="phases"></div>
+
+        <p class="update-time">更新于 2024-06-14</p>
+    </div>
+
+    <script>
+        const phases = [
+            {
+                id: 1,
+                title: "深入理解 Agent 4 大核心能力",
+                desc: "理解 Agent 的 4 大核心能力：推理、工具、记忆、规划。能用自己的话解释清楚。",
+                status: "pending",
+                tags: ["理论", "概念"]
+            },
+            {
+                id: 2,
+                title: "看一个完整的开源实现",
+                desc: "找一个 Python 实现的 Agent 项目，画出流程图，理解核心逻辑。",
+                status: "pending",
+                tags: ["理论", "源码"]
+            },
+            {
+                id: 3,
+                title: "自己实现核心循环",
+                desc: "写一个最小 Agent，约 50-100 行代码，包含 LLM 调用和循环。",
+                status: "pending",
+                tags: ["实践", "编码"]
+            },
+            {
+                id: 4,
+                title: "用框架快速搭产品",
+                desc: "用 LangChain/AutoGen 等框架，在现成基础上添加自己的业务逻辑。",
+                status: "pending",
+                tags: ["实践", "框架"]
+            },
+            {
+                id: 5,
+                title: "打磨成可发布产品",
+                desc: "完成 UI、包装、文档，做一个可以分享的最小产品。",
+                status: "pending",
+                tags: ["实践", "产品"]
+            }
+        ];
+
+        function renderPhases() {
+            const container = document.getElementById('phases');
+            const currentPhase = phases.find(p => p.status === 'current') || phases.find(p => p.status === 'pending');
+            const doneCount = phases.filter(p => p.status === 'done').length;
+            const progress = (doneCount / phases.length) * 100;
+
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            container.innerHTML = phases.map(phase => {
+                const statusText = {
+                    'done': '已完成',
+                    'current': '进行中',
+                    'pending': '待开始'
+                }[phase.status];
+
+                const tagsHtml = phase.tags.map(tag =>
+                    `<span class="tag">${tag}</span>`
+                ).join('');
+
+                return `
+                    <div class="phase">
+                        <div class="phase-header">
+                            <div class="phase-number ${phase.status}">${phase.id}</div>
+                            <div class="phase-title">${phase.title}</div>
+                            <span class="status ${phase.status}">${statusText}</span>
+                        </div>
+                        <p class="phase-desc">${phase.desc}</p>
+                        <div class="phase-tags">${tagsHtml}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        renderPhases();
+    </script>
+</body>
+</html>
