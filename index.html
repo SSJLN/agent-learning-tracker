@@ -31,6 +31,16 @@
             text-align: center;
             margin-bottom: 30px;
         }
+        .section-title {
+            color: white;
+            font-size: 20px;
+            margin: 30px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
         .progress-bar {
             background: rgba(255,255,255,0.2);
             height: 20px;
@@ -45,7 +55,7 @@
             transition: width 0.5s ease;
             border-radius: 10px;
         }
-        .phase {
+        .phase, .achievement {
             background: white;
             border-radius: 16px;
             padding: 20px;
@@ -77,6 +87,10 @@
             background: #f59e0b;
             animation: pulse 2s infinite;
         }
+        .achievement-icon {
+            font-size: 24px;
+            margin-right: 12px;
+        }
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.1); }
@@ -87,6 +101,12 @@
             color: #333;
             flex: 1;
             margin-left: 12px;
+        }
+        .achievement-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            flex: 1;
         }
         .status {
             padding: 4px 12px;
@@ -106,12 +126,17 @@
             background: #fef3c7;
             color: #d97706;
         }
-        .phase-desc {
+        .phase-desc, .achievement-desc {
             color: #666;
             font-size: 14px;
             line-height: 1.6;
         }
-        .phase-tags {
+        .achievement-date {
+            color: #999;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+        .phase-tags, .achievement-tags {
             display: flex;
             gap: 8px;
             margin-top: 12px;
@@ -132,6 +157,10 @@
             background: #d1fae5;
             color: #059669;
         }
+        .tag.achievement {
+            background: #fef3c7;
+            color: #d97706;
+        }
         .update-time {
             text-align: center;
             color: rgba(255,255,255,0.7);
@@ -149,7 +178,11 @@
             <div class="progress-fill" id="progressBar"></div>
         </div>
 
+        <h2 class="section-title">📋 学习计划</h2>
         <div id="phases"></div>
+
+        <h2 class="section-title">✅ 已完成事项</h2>
+        <div id="achievements"></div>
 
         <p class="update-time">更新于 2024-06-14</p>
     </div>
@@ -193,9 +226,43 @@
             }
         ];
 
+        const achievements = [
+            {
+                id: 1,
+                icon: "📥",
+                title: "下载 Claude Code 源码",
+                desc: "从 GitHub 下载 claw-code 项目，理解 Agent 架构",
+                date: "2024-06-14",
+                tags: ["配置"]
+            },
+            {
+                id: 2,
+                icon: "💻",
+                title: "安装 VS Code 中文版",
+                desc: "安装 Visual Studio Code 并配置中文界面",
+                date: "2024-06-14",
+                tags: ["配置"]
+            },
+            {
+                id: 3,
+                icon: "🔌",
+                title: "配置 Claude Code 插件",
+                desc: "在 VS Code 中安装 Claude Code 插件并配置 SiliconFlow API",
+                date: "2024-06-14",
+                tags: ["配置"]
+            },
+            {
+                id: 4,
+                icon: "🌐",
+                title: "创建学习进度网页",
+                desc: "开发上线学习进度可视化网页，发布到 GitHub Pages",
+                date: "2024-06-14",
+                tags: ["开发"]
+            }
+        ];
+
         function renderPhases() {
             const container = document.getElementById('phases');
-            const currentPhase = phases.find(p => p.status === 'current') || phases.find(p => p.status === 'pending');
             const doneCount = phases.filter(p => p.status === 'done').length;
             const progress = (doneCount / phases.length) * 100;
 
@@ -226,7 +293,35 @@
             }).join('');
         }
 
+        function renderAchievements() {
+            const container = document.getElementById('achievements');
+
+            if (achievements.length === 0) {
+                container.innerHTML = '<p style="color: rgba(255,255,255,0.6); text-align: center; padding: 20px;">暂无完成事项</p>';
+                return;
+            }
+
+            container.innerHTML = achievements.map(achievement => {
+                const tagsHtml = achievement.tags.map(tag =>
+                    `<span class="tag achievement">${tag}</span>`
+                ).join('');
+
+                return `
+                    <div class="achievement">
+                        <div class="phase-header">
+                            <span class="achievement-icon">${achievement.icon}</span>
+                            <div class="achievement-title">${achievement.title}</div>
+                        </div>
+                        <p class="achievement-desc">${achievement.desc}</p>
+                        <p class="achievement-date">📅 ${achievement.date}</p>
+                        <div class="achievement-tags">${tagsHtml}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
         renderPhases();
+        renderAchievements();
     </script>
 </body>
 </html>
