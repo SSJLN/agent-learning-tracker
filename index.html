@@ -12,142 +12,189 @@
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f5f5f5;
             min-height: 100vh;
-            padding: 20px;
         }
+        /* 顶部导航 */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-content {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-title {
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .navbar-progress {
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        /* 底部分页导航 */
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            z-index: 100;
+        }
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #999;
+            font-size: 12px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .tab-item.active {
+            color: #667eea;
+        }
+        .tab-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+        /* 主内容区 */
         .container {
             max-width: 600px;
             margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 80px;
         }
-        h1 {
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        /* 计划页面 */
+        .progress-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 24px;
             color: white;
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 28px;
+            margin-bottom: 24px;
         }
-        .subtitle {
-            color: rgba(255,255,255,0.8);
-            text-align: center;
-            margin-bottom: 30px;
+        .progress-title {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 8px;
         }
-        .section-title {
-            color: white;
-            font-size: 20px;
-            margin: 30px 0 16px 0;
-            padding-bottom: 8px;
-            border-bottom: 2px solid rgba(255,255,255,0.3);
+        .progress-number {
+            font-size: 36px;
+            font-weight: 700;
         }
-        .section-title:first-of-type {
-            margin-top: 0;
-        }
-        .progress-bar {
-            background: rgba(255,255,255,0.2);
-            height: 20px;
-            border-radius: 10px;
+        .progress-bar-bg {
+            background: rgba(255,255,255,0.3);
+            height: 8px;
+            border-radius: 4px;
+            margin-top: 12px;
             overflow: hidden;
-            margin-bottom: 30px;
         }
-        .progress-fill {
+        .progress-bar-fill {
             background: #4ade80;
             height: 100%;
             width: 0%;
+            border-radius: 4px;
             transition: width 0.5s ease;
-            border-radius: 10px;
         }
-        .phase, .achievement {
+        .phase {
             background: white;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         .phase-header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
         .phase-number {
-            background: #667eea;
-            color: white;
             width: 28px;
             height: 28px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 14px;
+            background: #e5e7eb;
+            color: #6b7280;
         }
         .phase-number.done {
             background: #4ade80;
+            color: white;
         }
         .phase-number.current {
             background: #f59e0b;
+            color: white;
             animation: pulse 2s infinite;
-        }
-        .achievement-icon {
-            font-size: 24px;
-            margin-right: 12px;
         }
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.1); }
         }
         .phase-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            flex: 1;
-            margin-left: 12px;
-        }
-        .achievement-title {
             font-size: 16px;
             font-weight: 600;
             color: #333;
+            margin-left: 12px;
             flex: 1;
         }
-        .status {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
+        .status-tag {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
             font-weight: 500;
         }
-        .status.pending {
-            background: #e5e7eb;
+        .status-tag.pending {
+            background: #f3f4f6;
             color: #6b7280;
         }
-        .status.done {
+        .status-tag.done {
             background: #d1fae5;
             color: #059669;
         }
-        .status.current {
+        .status-tag.current {
             background: #fef3c7;
             color: #d97706;
         }
-        .phase-desc, .achievement-desc {
+        .phase-desc {
             color: #666;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        .achievement-date {
-            color: #999;
-            font-size: 12px;
+            font-size: 13px;
+            line-height: 1.5;
             margin-top: 8px;
         }
-        .phase-tags, .achievement-tags {
+        .phase-tags {
             display: flex;
-            gap: 8px;
-            margin-top: 12px;
-            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
         }
         .tag {
             background: #f3f4f6;
             color: #6b7280;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
         }
         .tag.theory {
             background: #e0e7ff;
@@ -157,34 +204,185 @@
             background: #d1fae5;
             color: #059669;
         }
+        /* 成就页面 */
+        .achievement {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 12px;
+        }
+        .achievement-icon {
+            font-size: 32px;
+        }
+        .achievement-content {
+            flex: 1;
+        }
+        .achievement-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+        }
+        .achievement-desc {
+            color: #666;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+        .achievement-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .achievement-date {
+            color: #999;
+            font-size: 12px;
+        }
+        .achievement-tags {
+            display: flex;
+            gap: 6px;
+        }
         .tag.achievement {
             background: #fef3c7;
             color: #d97706;
         }
-        .update-time {
+        /* 统计页面 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
             text-align: center;
-            color: rgba(255,255,255,0.7);
-            margin-top: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+        .timeline {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .timeline-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+        }
+        .timeline-item {
+            display: flex;
+            gap: 12px;
+            padding-bottom: 16px;
+            border-left: 2px solid #e5e7eb;
+            padding-left: 16px;
+            margin-left: 8px;
+        }
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #667eea;
+            margin-left: -19px;
+            flex-shrink: 0;
+        }
+        .timeline-content {
+            flex: 1;
+        }
+        .timeline-date {
+            color: #999;
             font-size: 12px;
+        }
+        .timeline-text {
+            color: #333;
+            font-size: 14px;
+            margin-top: 4px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🚀 Agent 学习进度</h1>
-        <p class="subtitle">从零开始学习 Agent 开发</p>
+    <!-- 顶部导航 -->
+    <div class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-title">🚀 Agent 学习</div>
+            <div class="navbar-progress" id="progressText">0% 完成</div>
+        </div>
+    </div>
 
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressBar"></div>
+    <!-- 主内容 -->
+    <div class="container">
+        <!-- 学习计划页 -->
+        <div class="page active" id="page-plan">
+            <div class="progress-card">
+                <div class="progress-title">总体进度</div>
+                <div class="progress-number" id="progressPercent">0%</div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressBar"></div>
+                </div>
+            </div>
+            <div id="phasesList"></div>
         </div>
 
-        <h2 class="section-title">📋 学习计划</h2>
-        <div id="phases"></div>
+        <!-- 已完成页 -->
+        <div class="page" id="page-achievements">
+            <div id="achievementsList"></div>
+        </div>
 
-        <h2 class="section-title">✅ 已完成事项</h2>
-        <div id="achievements"></div>
+        <!-- 统计页 -->
+        <div class="page" id="page-stats">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="statPlan">0</div>
+                    <div class="stat-label">学习阶段</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statDone">0</div>
+                    <div class="stat-label">已完成</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statAchievement">0</div>
+                    <div class="stat-label">成就事项</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statDay">1</div>
+                    <div class="stat-label">学习天数</div>
+                </div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-title">📅 时间线</div>
+                <div id="timelineList"></div>
+            </div>
+        </div>
+    </div>
 
-        <p class="update-time">更新于 2024-06-14</p>
+    <!-- 底部分页 -->
+    <div class="tab-bar">
+        <div class="tab-item active" onclick="switchTab('plan')">
+            <span class="tab-icon">📋</span>
+            <span>学习计划</span>
+        </div>
+        <div class="tab-item" onclick="switchTab('achievements')">
+            <span class="tab-icon">✅</span>
+            <span>已完成</span>
+        </div>
+        <div class="tab-item" onclick="switchTab('stats')">
+            <span class="tab-icon">📊</span>
+            <span>统计</span>
+        </div>
     </div>
 
     <script>
@@ -214,7 +412,7 @@
                 id: 4,
                 title: "用框架快速搭产品",
                 desc: "用 LangChain/AutoGen 等框架，在现成基础上添加自己的业务逻辑。",
-                status: "pending",
+                status": "pending",
                 tags: ["实践", "框架"]
             },
             {
@@ -227,66 +425,40 @@
         ];
 
         const achievements = [
-            {
-                id: 1,
-                icon: "📥",
-                title: "下载 Claude Code 源码",
-                desc: "从 GitHub 下载 claw-code 项目，理解 Agent 架构",
-                date: "2024-06-14",
-                tags: ["配置"]
-            },
-            {
-                id: 2,
-                icon: "💻",
-                title: "安装 VS Code 中文版",
-                desc: "安装 Visual Studio Code 并配置中文界面",
-                date: "2024-06-14",
-                tags: ["配置"]
-            },
-            {
-                id: 3,
-                icon: "🔌",
-                title: "配置 Claude Code 插件",
-                desc: "在 VS Code 中安装 Claude Code 插件并配置 SiliconFlow API",
-                date: "2024-06-14",
-                tags: ["配置"]
-            },
-            {
-                id: 4,
-                icon: "🌐",
-                title: "创建学习进度网页",
-                desc: "开发上线学习进度可视化网页，发布到 GitHub Pages",
-                date: "2024-06-14",
-                tags: ["开发"]
-            }
+            { icon: "📥", title: "下载 Claude Code 源码", desc: "从 GitHub 下载 claw-code 项目", date: "2024-06-14", tags: ["配置"] },
+            { icon: "💻", title: "安装 VS Code 中文版", desc: "安装 Visual Studio Code 并配置中文", date: "2024-06-14", tags: ["配置"] },
+            { icon: "🔌", title: "配置 Claude Code 插件", desc: "在 VS Code 中安装 Claude Code 插件", date: "2024-06-14", tags: ["配置"] },
+            { icon: "🌐", title: "创建学习进度网页", desc: "开发上线学习进度可视化网页", date: "2024-06-14", tags: ["开发"] }
         ];
 
+        function switchTab(tab) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+            document.getElementById('page-' + tab).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
         function renderPhases() {
-            const container = document.getElementById('phases');
+            const container = document.getElementById('phasesList');
             const doneCount = phases.filter(p => p.status === 'done').length;
-            const progress = (doneCount / phases.length) * 100;
+            const progress = Math.round((doneCount / phases.length) * 100);
 
             document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressPercent').textContent = progress + '%';
+            document.getElementById('progressText').textContent = progress + '% 完成';
 
             container.innerHTML = phases.map(phase => {
-                const statusText = {
-                    'done': '已完成',
-                    'current': '进行中',
-                    'pending': '待开始'
-                }[phase.status];
-
-                const tagsHtml = phase.tags.map(tag =>
-                    `<span class="tag">${tag}</span>`
-                ).join('');
+                const statusText = { 'done': '已完成', 'current': '进行中', 'pending': '待开始' }[phase.status];
+                const tagsHtml = phase.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
 
                 return `
                     <div class="phase">
                         <div class="phase-header">
                             <div class="phase-number ${phase.status}">${phase.id}</div>
                             <div class="phase-title">${phase.title}</div>
-                            <span class="status ${phase.status}">${statusText}</span>
+                            <span class="status-tag ${phase.status}">${statusText}</span>
                         </div>
-                        <p class="phase-desc">${phase.desc}</p>
+                        <div class="phase-desc">${phase.desc}</div>
                         <div class="phase-tags">${tagsHtml}</div>
                     </div>
                 `;
@@ -294,34 +466,53 @@
         }
 
         function renderAchievements() {
-            const container = document.getElementById('achievements');
+            const container = document.getElementById('achievementsList');
 
-            if (achievements.length === 0) {
-                container.innerHTML = '<p style="color: rgba(255,255,255,0.6); text-align: center; padding: 20px;">暂无完成事项</p>';
-                return;
-            }
-
-            container.innerHTML = achievements.map(achievement => {
-                const tagsHtml = achievement.tags.map(tag =>
-                    `<span class="tag achievement">${tag}</span>`
-                ).join('');
-
+            container.innerHTML = achievements.map(a => {
+                const tagsHtml = a.tags.map(tag => `<span class="tag achievement">${tag}</span>`).join('');
                 return `
                     <div class="achievement">
-                        <div class="phase-header">
-                            <span class="achievement-icon">${achievement.icon}</span>
-                            <div class="achievement-title">${achievement.title}</div>
+                        <div class="achievement-icon">${a.icon}</div>
+                        <div class="achievement-content">
+                            <div class="achievement-title">${a.title}</div>
+                            <div class="achievement-desc">${a.desc}</div>
+                            <div class="achievement-meta">
+                                <span class="achievement-date">📅 ${a.date}</span>
+                                <div class="achievement-tags">${tagsHtml}</div>
+                            </div>
                         </div>
-                        <p class="achievement-desc">${achievement.desc}</p>
-                        <p class="achievement-date">📅 ${achievement.date}</p>
-                        <div class="achievement-tags">${tagsHtml}</div>
                     </div>
                 `;
             }).join('');
         }
 
+        function renderStats() {
+            const doneCount = phases.filter(p => p.status === 'done').length;
+
+            document.getElementById('statPlan').textContent = phases.length;
+            document.getElementById('statDone').textContent = doneCount;
+            document.getElementById('statAchievement').textContent = achievements.length;
+
+            const timelineContainer = document.getElementById('timelineList');
+            const allItems = [
+                ...phases.map(p => ({ type: 'plan', title: p.title, date: p.status === 'done' ? '2024-06-14' : null })),
+                ...achievements.map(a => ({ type: 'achievement', title: a.title, date: a.date }))
+            ].filter(i => i.date);
+
+            timelineContainer.innerHTML = allItems.map(item => `
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">${item.date}</div>
+                        <div class="timeline-text">${item.title}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         renderPhases();
         renderAchievements();
+        renderStats();
     </script>
 </body>
 </html>
